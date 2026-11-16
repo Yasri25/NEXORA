@@ -1,0 +1,106 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NEXORA | Management System</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Arial,sans-serif;background:#f3f5fa;color:#17233c}
+.app{display:flex;min-height:100vh}
+.sidebar{width:250px;background:#101b35;color:white;padding:25px 18px}
+.logo{font-size:25px;font-weight:800;letter-spacing:2px;margin-bottom:8px}
+.sub{font-size:10px;color:#9eafd0;margin-bottom:35px}
+.nav-title{font-size:10px;color:#8293b5;margin:24px 10px 10px}
+.nav a{display:block;color:#c4cde0;text-decoration:none;padding:13px 12px;border-radius:8px;margin:5px 0;font-size:14px}
+.nav a:hover,.nav a.active{background:#244caa;color:white}
+.main{flex:1;min-width:0}
+.topbar{background:white;padding:20px 30px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #e7eaf1}
+.topbar small{color:#7c879b}
+.content{padding:30px}
+.heading{display:flex;justify-content:space-between;gap:15px;flex-wrap:wrap;margin-bottom:25px}
+.heading h1{font-size:26px}
+.heading p{color:#78849a;margin-top:7px;font-size:14px}
+.button{background:#2454c5;color:white;border:0;border-radius:7px;padding:12px 17px;cursor:pointer}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:17px;margin-bottom:25px}
+.card{background:white;border:1px solid #e8ebf2;border-radius:12px;padding:20px}
+.card small{color:#7b879b}
+.number{font-size:27px;font-weight:700;margin-top:13px}
+.section-title{font-size:17px;margin-bottom:16px}
+.departments{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+.department{background:white;border:1px solid #e8ebf2;border-radius:12px;padding:22px}
+.department h3{font-size:16px;margin-bottom:9px}
+.department p{font-size:13px;color:#7b879b;line-height:1.6}
+.tag{display:inline-block;background:#edf2ff;color:#2454c5;padding:6px 9px;border-radius:5px;font-size:11px;margin-top:15px}
+.notice{margin-top:22px;background:#eaf0ff;border:1px solid #d5e1ff;padding:17px;border-radius:10px;font-size:13px;line-height:1.6}
+@media(max-width:850px){.stats{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:600px){.app{display:block}.sidebar{width:100%;padding:18px}.nav{display:flex;overflow-x:auto;gap:5px}.nav a{white-space:nowrap}.nav-title,.sub{display:none}.content{padding:18px}.departments{grid-template-columns:1fr}.topbar{padding:16px}.stats{gap:10px}.card{padding:14px}.number{font-size:22px}}
+</style>
+</head>
+<body>
+<div class="app">
+<aside class="sidebar">
+<div class="logo">NEXORA</div>
+<div class="sub">INTELLIGENT MANAGEMENT SYSTEM</div>
+<div class="nav-title">MAIN MENU</div>
+<nav class="nav">
+<a href="#" class="active">Dashboard</a>
+<a href="#operations">Operations</a>
+<a href="#projects">Projects & Programs</a>
+<a href="#hr">Members & HR</a>
+<a href="#marketing">Marketing</a>
+<a href="#assistant">AI Assistant</a>
+</nav>
+</aside>
+<main class="main">
+<header class="topbar">
+<strong>Management Portal</strong>
+<small>Administrator Workspace</small>
+</header>
+<div class="content">
+<div class="heading">
+<div>
+<h1>Executive Dashboard</h1>
+<p>Welcome to your organizational command center.</p>
+</div>
+<button class="button" onclick="alert('NEXORA workspace is ready for configuration.')">Workspace Overview</button>
+</div>
+<div class="stats">
+<div class="card"><small>Active Projects</small><div class="number">0</div></div>
+<div class="card"><small>Team Members</small><div class="number">0</div></div>
+<div class="card"><small>Active Programs</small><div class="number">0</div></div>
+<div class="card"><small>Pending Tasks</small><div class="number">0</div></div>
+</div>
+<h2 class="section-title">Department Management</h2>
+<div class="departments">
+<div class="department" id="operations">
+<h3>Operations & Management</h3>
+<p>Organizational administration, daily operations, planning and performance.</p>
+<span class="tag">Operations Module</span>
+</div>
+<div class="department" id="projects">
+<h3>Projects & Programs</h3>
+<p>Manage projects, programs, milestones, activities and progress reports.</p>
+<span class="tag">Projects Module</span>
+</div>
+<div class="department" id="hr">
+<h3>Members & HR</h3>
+<p>Member records, recruitment, onboarding, roles and team management.</p>
+<span class="tag">People Module</span>
+</div>
+<div class="department" id="marketing">
+<h3>Marketing & Communications</h3>
+<p>Campaign planning, content development, communications and outreach.</p>
+<span class="tag">Marketing Module</span>
+</div>
+</div>
+<div class="notice" id="assistant">
+<strong>NEXORA Intelligence</strong><br>
+AI integration is planned for Phase 2. All sensitive actions will require authorized human approval.
+</div>
+</div>
+</main>
+</div>
+</body>
+</html>
