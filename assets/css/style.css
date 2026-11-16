@@ -1,0 +1,68 @@
+
+:root {
+  --primary: #2454c5;
+  --dark: #101b35;
+  --background: #f3f5fa;
+  --white: #ffffff;
+  --text: #17233c;
+  --muted: #7b879b;
+  --border: #e8ebf2;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background: var(--background);
+  color: var(--text);
+}
+
+button, input, select, textarea {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+a {
+  text-decoration: none;
+}
+
+.container {
+  width: 100%;
+  min-height: 100vh;
+}
+
+.card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 20px;
+}
+
+.btn-primary {
+  background: var(--primary);
+  color: var(--white);
+  border: none;
+  padding: 12px 18px;
+  border-radius: 8px;
+}
+
+.btn-primary:hover {
+  opacity: 0.9;
+}
+
+.text-muted {
+  color: var(--muted);
+}
+
+@media (max-width: 768px) {
+  .card {
+    padding: 15px;
+  }
+}
