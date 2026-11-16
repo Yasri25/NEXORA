@@ -4,14 +4,14 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>NEXORA | Management System</title>
+<title>NEXORA | Intelligent Management System</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:Arial,sans-serif;background:#f3f5fa;color:#17233c}
 .app{display:flex;min-height:100vh}
-.sidebar{width:250px;background:#101b35;color:white;padding:25px 18px}
-.logo{font-size:25px;font-weight:800;letter-spacing:2px;margin-bottom:8px}
-.sub{font-size:10px;color:#9eafd0;margin-bottom:35px}
+.sidebar{width:250px;background:#101b35;color:white;padding:25px 18px;flex-shrink:0}
+.logo{font-size:25px;font-weight:800;letter-spacing:2px}
+.sub{font-size:10px;color:#9eafd0;margin:8px 0 35px}
 .nav-title{font-size:10px;color:#8293b5;margin:24px 10px 10px}
 .nav a{display:block;color:#c4cde0;text-decoration:none;padding:13px 12px;border-radius:8px;margin:5px 0;font-size:14px}
 .nav a:hover,.nav a.active{background:#244caa;color:white}
@@ -24,28 +24,51 @@ body{font-family:Arial,sans-serif;background:#f3f5fa;color:#17233c}
 .heading p{color:#78849a;margin-top:7px;font-size:14px}
 .button{background:#2454c5;color:white;border:0;border-radius:7px;padding:12px 17px;cursor:pointer}
 .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:17px;margin-bottom:25px}
-.card{background:white;border:1px solid #e8ebf2;border-radius:12px;padding:20px}
+.card,.department,.panel{background:white;border:1px solid #e8ebf2;border-radius:12px;padding:20px}
 .card small{color:#7b879b}
 .number{font-size:27px;font-weight:700;margin-top:13px}
-.section-title{font-size:17px;margin-bottom:16px}
+.section-title{font-size:17px;margin:25px 0 16px}
 .departments{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
-.department{background:white;border:1px solid #e8ebf2;border-radius:12px;padding:22px}
 .department h3{font-size:16px;margin-bottom:9px}
 .department p{font-size:13px;color:#7b879b;line-height:1.6}
 .tag{display:inline-block;background:#edf2ff;color:#2454c5;padding:6px 9px;border-radius:5px;font-size:11px;margin-top:15px}
 .notice{margin-top:22px;background:#eaf0ff;border:1px solid #d5e1ff;padding:17px;border-radius:10px;font-size:13px;line-height:1.6}
+#authPanel{max-width:430px;margin:30px auto}
+#authPanel input,.chat-input input{width:100%;padding:13px;border:1px solid #dce1eb;border-radius:7px;margin:8px 0;font-size:14px}
+#authPanel button{width:100%;margin-top:10px}
+#authMessage,#connectionStatus{font-size:13px;color:#68758b;margin-top:12px}
+#chatPanel{margin-top:25px}
+.chat-header{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+#messages{height:350px;overflow-y:auto;background:#f8f9fc;border:1px solid #e8ebf2;border-radius:9px;padding:15px;margin:16px 0}
+.message{padding:12px 14px;border-radius:9px;margin:10px 0;max-width:85%;font-size:14px;line-height:1.6;white-space:pre-wrap;overflow-wrap:anywhere}
+.user-message{background:#2454c5;color:white;margin-left:auto}
+.ai-message{background:white;border:1px solid #e3e7ef}
+.chat-input{display:flex;gap:9px}
+.chat-input input{margin:0;min-width:0}
+.chat-input button{flex-shrink:0}
+button:disabled{opacity:.55;cursor:not-allowed}
+.hidden{display:none!important}
 @media(max-width:850px){.stats{grid-template-columns:repeat(2,1fr)}}
-@media(max-width:600px){.app{display:block}.sidebar{width:100%;padding:18px}.nav{display:flex;overflow-x:auto;gap:5px}.nav a{white-space:nowrap}.nav-title,.sub{display:none}.content{padding:18px}.departments{grid-template-columns:1fr}.topbar{padding:16px}.stats{gap:10px}.card{padding:14px}.number{font-size:22px}}
+@media(max-width:600px){
+.app{display:block}.sidebar{width:100%;padding:18px}
+.nav{display:flex;overflow-x:auto;gap:5px}
+.nav a{white-space:nowrap}.nav-title,.sub{display:none}
+.content{padding:18px}.departments{grid-template-columns:1fr}
+.topbar{padding:16px}.stats{gap:10px}
+.card{padding:14px}.number{font-size:22px}
+.chat-input{flex-direction:column}
+}
 </style>
 </head>
 <body>
+
 <div class="app">
 <aside class="sidebar">
 <div class="logo">NEXORA</div>
 <div class="sub">INTELLIGENT MANAGEMENT SYSTEM</div>
 <div class="nav-title">MAIN MENU</div>
 <nav class="nav">
-<a href="#" class="active">Dashboard</a>
+<a href="#dashboard" class="active">Dashboard</a>
 <a href="#operations">Operations</a>
 <a href="#projects">Projects & Programs</a>
 <a href="#hr">Members & HR</a>
@@ -53,25 +76,35 @@ body{font-family:Arial,sans-serif;background:#f3f5fa;color:#17233c}
 <a href="#assistant">AI Assistant</a>
 </nav>
 </aside>
+
 <main class="main">
 <header class="topbar">
 <strong>Management Portal</strong>
-<small>Administrator Workspace</small>
+<div>
+<small id="userStatus">Not signed in</small>
+<button id="logoutButton" class="button hidden" style="margin-left:10px">Sign out</button>
+</div>
 </header>
-<div class="content">
+
+<div class="content" id="dashboard">
+
 <div class="heading">
 <div>
 <h1>Executive Dashboard</h1>
-<p>Welcome to your organizational command center.</p>
+<p>Your organizational command center for Techsavvy Tanzania.</p>
 </div>
-<button class="button" onclick="alert('NEXORA workspace is ready for configuration.')">Workspace Overview</button>
+<button class="button" onclick="document.querySelector('#assistant').scrollIntoView({behavior:'smooth'})">
+Open AI Assistant
+</button>
 </div>
+
 <div class="stats">
 <div class="card"><small>Active Projects</small><div class="number">0</div></div>
 <div class="card"><small>Team Members</small><div class="number">0</div></div>
 <div class="card"><small>Active Programs</small><div class="number">0</div></div>
 <div class="card"><small>Pending Tasks</small><div class="number">0</div></div>
 </div>
+
 <h2 class="section-title">Department Management</h2>
 <div class="departments">
 <div class="department" id="operations">
@@ -95,13 +128,53 @@ body{font-family:Arial,sans-serif;background:#f3f5fa;color:#17233c}
 <span class="tag">Marketing Module</span>
 </div>
 </div>
-<div class="notice" id="assistant">
-<strong>NEXORA Intelligence</strong><br>
-AI integration is planned for Phase 2. All sensitive actions will require authorized human approval.
+
+<section class="panel" id="authPanel">
+<h2>Founder / Administrator Login</h2>
+<p style="font-size:13px;color:#78849a;margin:10px 0">
+Sign in using your Supabase account.
+</p>
+<form id="loginForm">
+<input id="email" type="email" placeholder="Email address" required>
+<input id="password" type="password" placeholder="Password" required>
+<button class="button" type="submit">Sign in</button>
+</form>
+<p id="authMessage">Please sign in to access NEXORA AI.</p>
+</section>
+
+<section class="panel hidden" id="assistant">
+<div class="chat-header">
+<div>
+<h2>NEXORA AI Assistant</h2>
+<p style="font-size:13px;color:#78849a;margin-top:6px">
+Your intelligent management assistant
+</p>
 </div>
+<span class="tag" id="aiStatus">Awaiting connection</span>
+</div>
+
+<div id="messages">
+<div class="message ai-message">
+Hello! I am NEXORA, your AI management assistant for Techsavvy Tanzania. How can I help you today?
+</div>
+</div>
+
+<form id="chatForm" class="chat-input">
+<input id="userMessage" type="text" placeholder="Ask NEXORA anything..." required maxlength="8000">
+<button class="button" id="sendButton" type="submit">Send</button>
+</form>
+<p id="connectionStatus">Sign in to start communicating with NEXORA AI.</p>
+</section>
+
+<div class="notice">
+<strong>NEXORA Intelligence</strong><br>
+Sensitive actions require authorized human approval. AI responses do not automatically execute organizational changes.
+</div>
+
 </div>
 </main>
 </div>
-<script src="assets/js/app.js"></script>
+
+<script type="module" src="assets/js/app.js"></script>
 </body>
 </html>
